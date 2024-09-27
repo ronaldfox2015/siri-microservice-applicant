@@ -1,0 +1,59 @@
+clone:
+  depth: full
+
+definitions:
+  caches:
+    sonar: /opt/sonar-scanner/.sonar
+    dependencies: $BITBUCKET_CLONE_DIR/app/node_modules
+
+pipelines:
+  pull-requests:
+    '**':
+      - step: &setup
+          name: Setup
+          image: node:alpine
+          script:
+            - npm install -g pnpm
+            - cd app && pnpm install --frozen-lockfile
+          caches:
+          - dependencies
+
+      - step: &lint
+          name: Lint
+          image: node:alpine
+          script:
+            - npm install -g pnpm
+            - cd app && pnpm run lint
+          caches:
+          - dependencies
+      
+      - step: &test
+          name: Test
+          image: node:alpine
+          script:
+            - npm install -g pnpm
+            - cd app && pnpm run test
+          caches:
+          - dependencies
+          artifacts:
+            - app/coverage/**
+
+      - step: &sonar
+          name: SonarQube
+          script:
+            - pipe: sonarsource/sonarqube-scan:2.0.1
+              variables:
+                SONAR_HOST_URL: ${SONAR_HOST_URL}
+                SONAR_TOKEN: ${SONAR_TOKEN}
+            - pipe: sonarsource/sonarqube-quality-gate:1.0.0
+              variables:
+                SONAR_TOKEN: ${SONAR_TOKEN}
+
+pipelines:
+  pull-requests:
+    '**':
+      - step: *setup
+      - parallel:
+          - step: *lint
+          - step: *test
+      - step: *sonar
