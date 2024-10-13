@@ -44,10 +44,10 @@ compile-proto: ##@Global install dependencies
 		sh compile.proto.sh
 
 up: ##@Local Start the project
-	@IMAGE_DEV=$(IMAGE_DEPLOY_DEV) \
+	IMAGE_DEV=$(IMAGE_DEPLOY_DEV) \
 	CONTAINER_NAME=$(CONTAINER_NAME) \
 	PATH_SERVICE=$(PATH_SERVICE) \
-	NETWORK=${NETWORK} \
+	NETWORK=${DOCKER_NETWORK} \
 	docker compose -p $(SERVICE_NAME) up -d backend
 
 down: ##@Local Stops and removes the docker containers: make down
@@ -56,16 +56,13 @@ down: ##@Local Stops and removes the docker containers: make down
 log: ##@Local Show project logs
 	@docker logs -f $(CONTAINER_NAME)
 
+
 hooks-app: ##@Local hooks the project
 	cp $(PWD)/hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit
 	cp $(PWD)/hooks/prepare-commit-msg .git/hooks/ && chmod +x .git/hooks/prepare-commit-msg
 
 ssh: ##@Local Access the docker container
-	@docker container run -it --rm \
-  	-u ${_LOCAL}:${GID_LOCAL} \
-  			--network="neo_network" \
-	-v "${PWD}/${APP_DIR}":/${APP_DIR} \
-	$(IMAGE_DEPLOY_DEV) /bin/sh
+	@docker exec -it  $(CONTAINER_NAME) /bin/sh
 
 lint: ##@Global install dependencies
 	@docker container run --workdir "/${APP_DIR}" --rm -i \
@@ -74,12 +71,6 @@ lint: ##@Global install dependencies
 		${IMAGE_DEPLOY_DEV} \
 		yarn lint
 
-format: ##@Global install dependencies
-	@docker container run --workdir "/${APP_DIR}" --rm -i \
-		-v "${PWD}/${APP_DIR}":/${APP_DIR} \
-  	-u ${UID_LOCAL}:${GID_LOCAL} \
-		${IMAGE_DEPLOY_DEV} \
-		yarn lint:format
 
 doc: ##@Global Build project
 	@docker container run --workdir "/${APP_DIR}" --rm -i \

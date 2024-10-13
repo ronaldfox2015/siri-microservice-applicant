@@ -1,21 +1,31 @@
-from flask import Blueprint, request, jsonify
-from app.application.services.user_service import UserService
-from app.infrastructure.repositories.user_repository_impl import UserRepositoryImpl
+from flask import Blueprint, current_app, request, jsonify
 
-user_bp = Blueprint('user', __name__)
+from app.applicant.application.input.user_input_dto import UserInputDTO
+from app.applicant.application.services.user_service import UserService
+from app.applicant.infrastructure.repositories.user_repository_impl import UserRepositoryImpl
+user_controller = Blueprint('user', __name__)
 user_service = UserService(UserRepositoryImpl())
 
 
-@user_bp.route('/users', methods=['POST'])
+@user_controller.route('', methods=['POST'])
 def create_user():
-    data = request.json
-    user = user_service.create_user(data['username'])
-    return jsonify(id=user.id, username=user.username)
+    data = request.get_json()  # Si se envían datos en JSON
+    user_input = UserInputDTO(email=data["email"], password=data["password"], role=data["role"])
+    user_input.set_confirm_password(data["confirm_password"])
+    user = user_service.create_user(user_input)
+    return jsonify({
+        "code": 200*100,
+        "message": "ok",
+        "data": user
+    }), 200
 
 
-@user_bp.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    user = user_service.get_user(user_id)
+@user_controller.route('/auth/login', methods=['POST'])
+def auth_login():
+    data = request.get_json()
+    user_input = UserInputDTO(email=data["email"], password=data["password"], role=data["role"])
+    user_input.set_confirm_password(data["password"])
+    user = user_service.auth_login(user_input)
     if user:
         return jsonify(id=user.id, username=user.username)
     return jsonify(message='User not found'), 404

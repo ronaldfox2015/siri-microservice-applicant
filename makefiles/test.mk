@@ -1,9 +1,14 @@
-test-unit: ##@Global install dependencies
-	@docker container run --workdir "/${APP_DIR}" --rm -i \
-		-v "${PWD}/${APP_DIR}":/${APP_DIR} \
-  	-u ${UID_LOCAL}:${GID_LOCAL} \
-		${IMAGE_DEV} \
-		yarn run test
+test-deploy:
+	rm -f app/.coverage
+	cp app/requirements.txt docker/test/resources/requirements.txt
+	docker build -f docker/test/Dockerfile \
+				-t ${IMAGE_TEST} docker/test/
+	rm -f docker/test/resources/requirements.txt
+	docker run --rm -t -u $(UID_LOCAL):$(GID_LOCAL) \
+			-v $(PWD)/app:/app:rw -v $(PWD)/docker/test/config:/app/config:rw $(IMAGE_TEST)
+	rm -rf app/config
+	sed -i 's|/app/|app/|g' $(PWD)/app/build/reports/cover/xml/coverage.xml
+	sed -i '/<line number="0"/d' $(PWD)/app/build/reports/cover/xml/coverage.xml
 
 test-integration: ##@Global install dependencies
 	@docker container run --workdir "/${APP_DIR}" --rm -i \
@@ -33,8 +38,4 @@ test-bdd: ##@Global Unit test
 		${IMAGE_DEV} \
 		yarn bdd
 
-test-deploy: ##@Global Test deploy
-	docker container run --workdir "/${APP_DIR}" --rm -i \
-		-v "${PWD}/${APP_DIR}/coverage":/${APP_DIR}/coverage \
-		${IMAGE_DEPLOY_TEST} \
-		yarn test
+

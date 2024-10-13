@@ -1,0 +1,46 @@
+neoauto:
+  portal: "http://local.neoauto3.com"
+  api: "http://balancer"
+  elements: "https://cde.dev.neoauto.com"
+  santanderLanding: "/credito-santander?utm_source=ti&utm_medium=flotante&utm_campaign=home"
+  santanderUsedCars: "/venta-de-autos-usados?cv_precio_max=[amount]&ord_lower_quota_santander=1&=&utm_source=ti&utm_medium=banner&utm_campaign=cv-aprobado"
+santander:
+  user: "NEOAUTO"
+  pass: "xV8AwsTvKjwmavQbNEXmINl7qQyMD0hMKfGDmhOIDbQ="
+  baseUrl: "https://www.google.com"
+  appCod: "3587190C-6012-47C2-A6FB-6A4E72F4B097"
+  idServiceContract: "7E594BB0-75BB-48F8-A0F6-FA2F07E808BE"
+  descServiceContract: "ServicioEvaluation"
+  userService: "NEOAUTOEXPRESS"
+  descService: "EvaluacioncreditosAutos"
+santanderCredit:
+  user: "NEOAUTO"
+  pass: "xV8AwsTvKjwmavQbNEXmINl7qQyMD0hMKfGDmhOIDbQ="
+  baseUrl: "https://services.santanderconsumer.com.pe:4453"
+  appCod: "3587190C-6012-47C2-A6FB-6A4E72F4B097"
+  idServiceContract: "7E594BB0-75BB-48F8-A0F6-FA2F07E808BE"
+  descServiceContract: "ServicioEvaluation"
+  userService: "NEOAUTOEXPRESS"
+  descService: "EvaluacioncreditosAutos"
+pandero:
+  host: "https://udlk44pvta.execute-api.us-west-2.amazonaws.com"
+  user: "neoauto"
+  pass: "tg5$iu)P86$"
+  sellerId: "4343434fe3"
+  numberOfShipmentsAllowed: 24
+whatsapp:
+  group: "nothing"
+  key: "nothing"
+  setUrl: "https://wbpback.mantra.chat.fake.test/contacts/new"
+  sendUrl: "https://wbpback.mantra.chat.fake.test/contacts/send"
+ibr:
+  credentials:
+    username: "tests@neoauto.pe"
+    password: "324BJH20ML"
+  endpoints:
+    auth: "https://api.iautos.pe/api/v1/Accounts/Login"
+    integration: "https://api.iautos.pe/api/v1/Historial_Temporal"
+    soat: "https://api.iautos.pe/api/v1/Soat/Obten_x_NumeroPlaca_Hoy/"
+    ticket: "https://api.iautos.pe/api/v1/Papeleta/Obten_x_NumeroPlaca_Hoy/"
+    inspection: "https://api.iautos.pe/api/v1/Revision_Tecnica/Obten_x_NumeroPlaca_Hoy/"
+    tax: "https://api.iautos.pe/api/v1/Impuesto_Vehicular/Obten_x_NumeroPlaca_Hoy/"

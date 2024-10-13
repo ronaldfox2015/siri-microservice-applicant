@@ -23,7 +23,8 @@ CLUSTER           ?= $(OWNER)-$(ENV)
 PROJECT_NAME      = $(OWNER)-$(ENV)-$(SERVICE_NAME)
 APP_DIR           = app
 DEPLOY_REGION     ?= us-east-1
-PATH_SERVICE	= /v2/search*
+PATH_SERVICE	= /v1/*
+IMAGE_TEST		= ${PROJECT_NAME}:test
 
 ## INCLUDE TARGETS ##
 include makefiles/container.mk
