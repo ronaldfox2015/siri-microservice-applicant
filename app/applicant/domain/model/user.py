@@ -1,8 +1,8 @@
 import bcrypt
 
-from app.applicant.application.input.user_input_dto import UserInputDTO
-from app.applicant.domain.entities.user import User
-from app.applicant.domain.repositories.user_repository import UserRepository
+from applicant.application.input.user_input_dto import UserInputDTO
+from applicant.domain.entities.user import User
+from applicant.domain.repositories.user_repository import UserRepository
 from flask import current_app
 
 

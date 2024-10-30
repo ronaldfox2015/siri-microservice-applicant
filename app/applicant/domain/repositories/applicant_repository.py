@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from app.applicant.domain.entities.applicant import Applicant
+from applicant.domain.entities.applicant import Applicant
 
 
 class ApplicantRepository(ABC):

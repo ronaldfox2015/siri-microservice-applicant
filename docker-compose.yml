@@ -9,17 +9,19 @@ services:
       AWS_CONFIG_FILE: /app/.aws/config
       AWS_PROFILE: dev
       AWS_SDK_LOAD_CONFIG: 1
+
     working_dir: /app
     volumes:
       - ./app:/app
       - ~/.aws/:/app/.aws/:rw
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.applicant.rule=(PathPrefix(`/v1/*`))"
+      - "traefik.http.routers.applicant.rule=PathPrefix(`/v1`)"
       - "traefik.http.services.applicant.loadbalancer.server.port=80"
     networks:
-      - neo_network
+      - siri_network
 
 networks:
-  neo_network:
+  siri_network:
     external: true
+

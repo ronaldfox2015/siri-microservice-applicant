@@ -1,13 +1,19 @@
-from app.applicant.domain.repositories.openai_repository import OpenaiRepository
+from applicant.domain.repositories.openai_repository import OpenaiRepository
 from openai import OpenAI
+import json
 
+import os
+from flask import Blueprint, jsonify, request, current_app
 
 class OpenaiRepositoryImpl(OpenaiRepository):
 
     def search_by_prompt(self, prompt: str):
         try:
+            print(os.environ.get("OPENAI_API_KEY"))
             client = OpenAI(
+                api_key=os.environ.get("OPENAI_API_KEY"),
             )
+
 
             completion = client.chat.completions.create(
                 model="gpt-4o-mini",
@@ -20,9 +26,9 @@ class OpenaiRepositoryImpl(OpenaiRepository):
                 ]
             )
 
-            print(completion.choices[0].message)
+            current_app.logger.info(f"response: {completion.choices[0].message.content}")
 
-            return completion.choices
+            return completion.choices[0].message.content
         except ZeroDivisionError as e:
             print(f"Ocurrió un error: {e}")
             return ''

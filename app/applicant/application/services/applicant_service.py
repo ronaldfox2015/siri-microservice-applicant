@@ -1,7 +1,7 @@
-from app.applicant.domain.model.applicant import ApplicantModel
-from app.applicant.domain.repositories.applicant_repository import ApplicantRepository
+from applicant.domain.model.applicant import ApplicantModel
+from applicant.domain.repositories.applicant_repository import ApplicantRepository
 
-from app.applicant.domain.repositories.openai_repository import OpenaiRepository
+from applicant.domain.repositories.openai_repository import OpenaiRepository
 
 
 class ApplicantService:

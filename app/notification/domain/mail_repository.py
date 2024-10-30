@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from app.notification.domain.items import ItemsEntity, MailBody
+from notification.domain.items import ItemsEntity, MailBody
 
 
 class MailRepository(ABC):

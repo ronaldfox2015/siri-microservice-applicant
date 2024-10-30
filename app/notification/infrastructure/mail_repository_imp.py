@@ -1,5 +1,5 @@
-from app.notification.domain.items import ItemsEntity, MailBody
-from app.notification.domain.mail_repository import MailRepository
+from notification.domain.items import ItemsEntity, MailBody
+from notification.domain.mail_repository import MailRepository
 from flask import Flask, render_template, current_app, abort
 import smtplib
 from email.mime.multipart import MIMEMultipart

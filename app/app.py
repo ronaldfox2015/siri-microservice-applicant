@@ -1,12 +1,12 @@
 import logging
 from flask import Flask, jsonify
 
-from app.interface.applicant_controller import applicant_controller
-from app.interface.apply_controller import apply_controller
-from app.interface.notification_controller import notification_controller
-from app.interface.user_controller import user_controller
-from app.applicant.infrastructure.db.models import db
-from app.interface.home_controller import post_health
+from interface.applicant_controller import applicant_controller
+from interface.apply_controller import apply_controller
+from interface.notification_controller import notification_controller
+from interface.user_controller import user_controller
+from applicant.infrastructure.db.models import db
+from interface.home_controller import post_health
 import os
 
 
@@ -58,4 +58,4 @@ app.register_blueprint(notification_controller, url_prefix='/v1/notification')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0')

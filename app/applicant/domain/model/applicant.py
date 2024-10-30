@@ -1,4 +1,4 @@
-from app.applicant.domain.repositories.applicant_repository import ApplicantRepository
+from applicant.domain.repositories.applicant_repository import ApplicantRepository
 
 
 class ApplicantModel:
