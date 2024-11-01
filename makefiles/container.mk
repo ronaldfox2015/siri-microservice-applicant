@@ -17,16 +17,7 @@ IMAGE_DEPLOY_TEST = $(PROJECT_NAME)-test:$(ENV)
 YARN_ENVIRONMENT ?=
 
 build:##@Global Build project : make build MODE=image, make build MODE=build-dist
-ifeq ($(MODE), image)
 	docker build --build-arg UID=$(USER_ID) --build-arg GID=$(GROUP_ID) -f docker/dev/Dockerfile --no-cache -t $(IMAGE_BUILD)  ./
-endif
-ifeq ($(MODE), build-dist)
-	@docker container run --workdir "/${APP_DIR}" --rm -i \
-		-v "${PWD}/${APP_DIR}":/${APP_DIR} \
-		${IMAGE_BUILD} \
-		yarn build
-	@ls -l ${PWD}/${APP_DIR}/dist
-endif
 
 build-image-test: ##@Global Create a Docker image with the dependencies packaged
 	@docker build -f docker/test/Dockerfile --no-cache -t $(IMAGE_DEPLOY_TEST) .
@@ -48,7 +39,7 @@ up: ##@Local Start the project
 	CONTAINER_NAME=$(CONTAINER_NAME) \
 	PATH_SERVICE=$(PATH_SERVICE) \
 	NETWORK=${DOCKER_NETWORK} \
-	docker compose -p $(SERVICE_NAME) up -d backend
+	docker compose -p $(SERVICE_NAME) up backend
 
 down: ##@Local Stops and removes the docker containers: make down
 	@docker rm -f $(CONTAINER_NAME)
