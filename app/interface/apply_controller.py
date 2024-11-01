@@ -1,8 +1,8 @@
 from flask import Blueprint, current_app, request, jsonify
 
-from applicant.application.services.applicant_service import ApplicantService, ApplyService
-from applicant.infrastructure.repositories.applicant_repository_impl import ApplicantRepositoryImpl
-from applicant.infrastructure.repositories.openai_repository_impl import OpenaiRepositoryImpl
+from app.applicant.application.services.applicant_service import ApplicantService, ApplyService
+from app.applicant.infrastructure.repositories.applicant_repository_impl import ApplicantRepositoryImpl
+from app.applicant.infrastructure.repositories.openai_repository_impl import OpenaiRepositoryImpl
 
 apply_controller = Blueprint('apply', __name__)
 applicant_service = ApplicantService(ApplicantRepositoryImpl())

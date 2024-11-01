@@ -1,6 +1,6 @@
-from notification.application.send_input_dto import SendInputDTO
-from notification.domain.items import ItemsEntity, Addressee, MailBody
-from notification.domain.mail_repository import MailRepository
+from app.notification.application.send_input_dto import SendInputDTO
+from app.notification.domain.items import ItemsEntity, Addressee, MailBody
+from app.notification.domain.mail_repository import MailRepository
 
 
 class MailService:

@@ -1,4 +1,4 @@
-from applicant.domain.repositories.openai_repository import OpenaiRepository
+from app.applicant.domain.repositories.openai_repository import OpenaiRepository
 from openai import OpenAI
 import json
 

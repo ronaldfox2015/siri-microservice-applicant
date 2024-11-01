@@ -1,8 +1,8 @@
 from flask import Blueprint, current_app, request, jsonify
 
-from notification.application.mai_service import MailService
-from notification.application.send_input_dto import SendInputDTO
-from notification.infrastructure.mail_repository_imp import MailRepositoryImpl
+from app.notification.application.mai_service import MailService
+from app.notification.application.send_input_dto import SendInputDTO
+from app.notification.infrastructure.mail_repository_imp import MailRepositoryImpl
 import os
 
 notification_controller = Blueprint('notification', __name__)

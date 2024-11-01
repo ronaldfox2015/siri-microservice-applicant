@@ -1,12 +1,15 @@
 import logging
 from flask import Flask, jsonify
 
-from interface.applicant_controller import applicant_controller
-from interface.apply_controller import apply_controller
-from interface.notification_controller import notification_controller
-from interface.user_controller import user_controller
-from applicant.infrastructure.db.models import db
-from interface.home_controller import post_health
+from app.interface.applicant_controller import applicant_controller
+from app.interface.apply_controller import apply_controller
+from app.interface.notification_controller import notification_controller
+from app.interface.user_controller import user_controller
+from app.applicant.infrastructure.db.models import db
+from app.interface.home_controller import post_health
+from app.interface.announcement_controller import announcement_controller
+from app.interface.applicant_documents_controller import applicant_documents_controller
+
 import os
 
 
@@ -35,7 +38,8 @@ app.register_blueprint(apply_controller, url_prefix='/v1/applicant')
 
 app.register_blueprint(notification_controller, url_prefix='/v1/notification')
 
-
+app.register_blueprint(announcement_controller, url_prefix='/v1/announcement')
+app.register_blueprint(applicant_documents_controller, url_prefix='/v1/applicant_documents')
 # @app.errorhandler(Exception)
 # def handle_exception(e):
 #     """Manejar excepciones globalmente."""
@@ -56,6 +60,9 @@ app.register_blueprint(notification_controller, url_prefix='/v1/notification')
 #         return jsonify(response), 400
 #     return jsonify(response), 500
 
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'resources', 'aplicant_documents')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)

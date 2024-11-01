@@ -1,8 +1,8 @@
 from flask import Blueprint, current_app, request, jsonify
 
-from applicant.application.input.user_input_dto import UserInputDTO
-from applicant.application.services.user_service import UserService
-from applicant.infrastructure.repositories.user_repository_impl import UserRepositoryImpl
+from app.applicant.application.input.user_input_dto import UserInputDTO
+from app.applicant.application.services.user_service import UserService
+from app.applicant.infrastructure.repositories.user_repository_impl import UserRepositoryImpl
 user_controller = Blueprint('user', __name__)
 user_service = UserService(UserRepositoryImpl())
 

@@ -1,7 +1,7 @@
 
-from applicant.domain.entities.user import User
-from applicant.domain.repositories.user_repository import UserRepository
-from applicant.infrastructure.db.models import db, UserModelOrm
+from app.applicant.domain.entities.user import User
+from app.applicant.domain.repositories.user_repository import UserRepository
+from app.applicant.infrastructure.db.models import db, UserModelOrm
 from sqlalchemy import and_
 
 

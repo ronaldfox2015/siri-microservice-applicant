@@ -1,6 +1,6 @@
-from applicant.domain.entities.applicant import Applicant
-from applicant.domain.repositories.applicant_repository import ApplicantRepository
-from applicant.infrastructure.db.models import ApplicantModelOrm, db
+from app.applicant.domain.entities.applicant import Applicant
+from app.applicant.domain.repositories.applicant_repository import ApplicantRepository
+from app.applicant.infrastructure.db.models import ApplicantModelOrm, db
 from flask import current_app
 from sqlalchemy import and_
 
